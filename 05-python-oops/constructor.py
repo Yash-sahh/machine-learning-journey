@@ -3,9 +3,15 @@ class Student:
         print("this is the constructor")
         self.name = name
         self.cgpa = cgpa
+     # there are two types of constructor parameterized constructor and default constructor default constructor me sirf self parameter hoga jo ke by default call ho jata hai yadi apan ne koi bhi constructor define nhi kiya hai to jabki parametrized constructor me parameters hote hai self ke alawa jaise ki ye wala constructor hai and in python ek hi constructor ho sakta hai unlike java 
+    def get_cgpa(self):
+        return self.cgpa
+    
+    
 stu1 = Student("Yash",9.15)
 stu2 = Student("Yash ki behen",9.25)
 stu3 = Student("Yash ka bhai",9.0)
 print(stu1.name,stu1.cgpa)
 print(stu2.name,stu2.cgpa)
 print(stu3.name,stu3.cgpa)
+print(stu2.get_cgpa())

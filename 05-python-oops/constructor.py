@@ -1,13 +1,13 @@
 class Student:
     def __init__(self,name,cgpa):    #__init__method is constructor which is called automatically when we define an object and if we didnt create init method it is automatically created by python and we create init method by our self if we want to initialise some attributees with some values while creating object and self is current instance of the class class ke andar ke attributes ko self ki help se use kar sakte hai and we have to passs it with every methods we create in class
         print("this is the constructor")
-        self.name = name
-        self.cgpa = cgpa
+        self.name = name     # these are instance attributes because they belong to object means they are different for different object of same class
+        self.cgpa = cgpa    # these are instance attributes because they belong to object means they are different for different object of same class
      # there are two types of constructor parameterized constructor and default constructor default constructor me sirf self parameter hoga jo ke by default call ho jata hai yadi apan ne koi bhi constructor define nhi kiya hai to jabki parametrized constructor me parameters hote hai self ke alawa jaise ki ye wala constructor hai and in python ek hi constructor ho sakta hai unlike java 
     def get_cgpa(self):
         return self.cgpa
     
-    
+        
 stu1 = Student("Yash",9.15)
 stu2 = Student("Yash ki behen",9.25)
 stu3 = Student("Yash ka bhai",9.0)

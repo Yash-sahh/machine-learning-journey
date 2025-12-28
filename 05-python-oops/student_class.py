@@ -1,7 +1,7 @@
 class Student:  # class is actually a blurprint jiski koi memory location nhi hoti hai
-    subject = "python"        # these are attributes of class
-    college = "ABC"        # these are attributes of class
-    year = "4th year"        # these are attributes of class
+    subject = "python"        # these are attributes of class called class attribute because they belongs to class same for all object
+    college = "ABC"        # these are attributes of class called class attribute because they belongs to class same for all object
+    year = "4th year"        # these are attributes of class called class attribute because they belongs to class same for all object
     
     def print_hello(self):     # this is method-> a function defined inside the class is called method
         print("hello")            # while creating method we always pass self keyword 

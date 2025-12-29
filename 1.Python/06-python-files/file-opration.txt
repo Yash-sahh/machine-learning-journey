@@ -1,0 +1,15 @@
+Modes
+r->pointer at starting #reading[default] -> if we didnt write mode then by default it will be reading reading
+w->erase all data and pointer at starting thats why if we write in w it overwrite #writing ,truncate file first
+x #creates new & open for writing
+a->pointer at end  #writing ,appends at end
+b #binary mode
+t #text mode
++ #opens disk file for update(r & w)
+
+
+if we want to write in text mode then "wt"
+write in binary mode wb
+read in binary mode rb
+read in text mode rt
+append in text mode at

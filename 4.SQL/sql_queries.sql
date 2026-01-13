@@ -51,6 +51,8 @@ VALUES  -- actual values jise ham row wise insert karenge nimnlikhit
 (3,16,"casey","casey@email.com",300,306),
 (4,17,"donald","donald@gmail.com",200,105);
 
+
+
 SELECT * FROM user; -- it select and show data from table -- it select all data ( * = all)
 
 SELECT name, email FROM user; -- it will select only columns name and email
@@ -95,3 +97,169 @@ WHERE followers >= 200;
 SELECT name, age, followers, following
 FROM user
 WHERE age < 16;
+
+-- now we want name age followers of users whose age is 15+ and followers count is 200+
+SELECT name, age, followers
+FROM user
+WHERE age>15 AND followers>200;
+
+-- but if we want all details of user whose age > 15 ho ya fir followers>200 ho koi ek bhi condition true ho jaye
+SELECT *
+FROM user 
+WHERE age>15 OR followers>200;
+
+-- if we want name age followers following of users whose age is between 15 to 17 - means it can be 15,16, 17 
+SELECT name, age, followers, following
+FROM user
+WHERE age BETWEEN 15 AND 17;  
+
+# if we want ki we want users who are using particular emails then we use in operator and pass emailas list
+SELECT *
+FROM user
+WHERE email IN ("donald@gmail.com","bob123@gmail.com","abc@gmail.com");
+
+-- let we want users whose age is 14 and 16 only
+SELECT name, age 
+FROM user
+WHERE age IN (14,16);
+
+-- next clause is LIMIT clause - it sets an upper limit on number of tuple(rows) to be return mean if we apply limit 3 then if there is more then 3 tuples data then only 3 tuple will select and show
+ -- let we want info any two users whose age is greater then 14
+SELECT *
+FROM user
+WHERE age>14  -- we have three users whose age is greater then 14 
+LIMIT 2;   -- but if we want details of only 2 users then we will apply LIMIT clause
+
+-- now let we want info about 3 users only without any condition
+SELECT * 
+FROM user
+LIMIT 3;  -- no need to use where to use LIMIT
+
+-- next lets talk about ORDER BY clause - it sort the data in ascending or desecnding order matlab jo bhi data ayega wo kisi bhi random order me aayega butt if we wantt ki wo scending order me aaaye ya fir descending order me aaye to we will order by clause
+-- let we want ki on the basis of followers ascending order me sort hoke aaye 
+
+SELECT * 
+FROM user
+ORDER BY followers ASC; -- syntax -> ORDER BY column_name jiske ooper sorting lagani hai ASC/DESC  => if we doesnt write ASC or DESC then  by default sorting will be in ASC order
+
+-- aggregate function => they are some predefined functions in sql which performs calculation on set of values and return single value
+-- COUNT()
+-- MAX()
+-- MIN()
+-- SUM()
+-- AVG()
+
+-- let we want maximum follower kitne hai kisi user ke
+SELECT MAX(followers)
+FROM user;
+
+-- now let we want avg of following
+SELECT AVG(following)
+FROM user;
+
+-- let we want count of email ids in user table
+SELECT COUNT(email)
+FROM user;
+
+-- we want to count users whose age is more then 15
+SELECT COUNT(age)
+FROM user
+WHERE age>15;
+
+-- we want sum of followers of users whose age is equals to 14 and 16
+SELECT SUM(followers)
+FROM user
+WHERE age IN (14,16);
+
+-- next we have GROUP BY clause => it is generally used with a aggregate function
+-- let i want the count of user age wise means we want count of users whose age is 14, count of user whose aege is 15 .. whose age is 16 and so on
+-- so i want to group the users on the basis of there age
+ -- and then count them
+ SELECT age,COUNT(id)   -- and it will count users in that groups
+ FROM user
+ GROUP BY age;     -- it will group the user according to there age 
+ 
+ -- now let we want max followers among this group 
+ SELECT age,MAX(followers)  -- one more imp -> if we write any column name outside the agggregation function if we are useing aggregation function then we will have to group by that column otherwise it will give error
+ FROM user
+ GROUP BY age;
+ 
+ -- HAVING clause it is similar to WHERE clause which applies condition on rows, but it is used when we want to apply condintion after grouping 
+ -- now let we want max follower in each age group but there is a condtion here we want only those followers count is greater then 200
+SELECT age,MAX(followers)
+FROM user
+GROUP BY age
+HAVING MAX(followers)>200; -- applying condition on group 
+
+-- so where clause is for the table which apply condition on rows and where clause is for the group which apply condition on group and also grouping is necessary for having
+
+-- general order to write clauses
+-- SELECT column(s)
+-- FROM table_name
+-- WHERE condition
+-- GROUP BY column(s)
+-- HAVING condition
+
+-- table queries
+-- UPDATE used to update existing value
+-- let we want to update followers count to 600 of ids whose age is 16
+UPDATE user   -- UPDATE table_name
+SET followers = 600  -- SET column_name = value,column_name = value
+WHERE age = 16; -- WHERE condition;
+
+SET SQL_SAFE_UPDATES = 0; -- by default sql has safe update value 1 which doesnt allow to update table and whenever we try to update it will give an error so befor update we have to set it to 0 
+-- DELETE it delete existing rows from table
+
+-- let we want to delete users whose age is equal to 14 in table user
+DELETE FROM user  -- DELETE FROM table_name
+WHERE age = 14;   -- WHERE condition  -- if we doesnt write where clause it will delete all rows
+
+-- ALTER -> to change the schema
+
+-- to add new column
+-- ALTER TABLE table_name
+-- ADD COLUMN column_name datatype constraint;
+
+ALTER TABLE user
+ADD COLUMN city VARCHAR(25) DEFAULT "DELHI";
+
+-- to delete existing column
+-- ALTER TABLE table_name
+-- DROP COLUMN column_name;
+
+ALTER TABLE user
+DROP COLUMN city;
+
+-- to rename table
+-- ALTER TABLE table_name
+-- RENAME TO new_table_name;
+
+ALTER TABLE user
+RENAME TO user_table;
+
+-- to rename column name
+-- ALTER TABLE table_name
+-- CHANGE COLUMN old_name new_name new_datatype new_constraint;  -> if we want that datatype purana wala hi rahe to bhi purana wala datatype dobara dena padega in new_datatype same for constraint
+
+ALTER TABLE user_table
+CHANGE COLUMN id user_id INT;
+
+-- to modify column
+-- ALTER TABLE table_name
+-- MODIFY col_name new_datatype new_constraint;
+
+ALTER TABLE user_table
+MODIFY age FLOAT  NOT NULL;
+
+-- DROP TABLE table_name -> it will delete table
+USE instagram;
+DROP TABLE post;
+-- TRUNCATE TABLE table_name -> it will delete all data of table and will not delete the table itself
+TRUNCATE TABLE user_table;
+SELECT *
+FROM user_table;
+
+DROP  TABLE user_table;
+SELECT *
+FROM user_table;   -- now it will give an error because drop table deletes the table and now there is not any table named user_table
+DROP DATABASE college; -- this is how we delete database
